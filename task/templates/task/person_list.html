@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+<html lang="en">  
+  <head>  
+    <meta charset="UTF-8">  
+    <title>Employee Records</title> 
+         
+      
+    {# <link rel="stylesheet" type="text/css" href="{% static 'css/design.css' %}">  #}
+    {% load staticfiles %}
+    
+         
+  </head>
+  <body>
+    {% block content %}
+    <h2>Company Employee Details</h2>
+
+    <p>
+      <a href="{% url 'person_add' %}">Add person</a>
+    </p>
+    <div class="container">
+      <table class = "table table-hover" border="1">
+        <thead>
+          <tr>  
+            <th>Name</th>
+            <th>Birthdate</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>City</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for person in people %}
+          <tr>
+            <td><a href="{% url 'person_change' person.pk %}">{{ person.name }}</a></td>
+            <td>{{ person.birthdate }}</td>
+            <td>{{ person.country.name }}</td>
+            <td>{{ person.state.name }}</td>
+            <td>{{ person.city.name }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">No person in the database. <a href="{% url 'person_add' %}">Add the first person</a>.</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    <div>
+  </body>
+  {% endblock %}
+</html>
